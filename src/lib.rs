@@ -30,6 +30,7 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
     f.read_to_string(&mut contents)?;
 
     for line in search(&config.query, &contents) {
+
         println!("Search results =====> {}", line);
     }
 
@@ -37,11 +38,11 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    
+   let query = query.to_lowercase(); 
     let mut results = Vec::new();
 
     for line in contents.lines() {
-        if line.contains(query) {
+        if line.to_lowercase().contains(&query) {
             results.push(line);        
         }
     }
